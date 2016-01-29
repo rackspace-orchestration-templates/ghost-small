@@ -5,7 +5,7 @@ Description
 
 The latest version of [Ghost](http://ghost.org/about/) installed with
 [Nginx](http://wiki.nginx.org/Main/), [Node.js](http://nodejs.org/) and
-[MySQL 5.5](http://www.mysql.com/about/).
+a Cloud Database running [MySQL 5.1](http://www.mysql.com/about/).
 
 
 Instructions
