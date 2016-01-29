@@ -17,21 +17,21 @@ parameters:
     type: string
     default: example.com
     label: Site Domain
-    description: Domain to use with WordPress Site
+    description: Domain to use with Ghost Site
     constraints:
     - allowed_pattern: "^[a-zA-Z0-9.-]{1,255}.[a-zA-Z]{2,15}$"
       description: Must be a valid domain name
   ghost_email:
     type: string
     default: admin@example.com
-    label: WordPress Admin E-mail
-    description: E-mail Address for WordPress Admin User
+    label: Ghost Admin E-mail
+    description: E-mail Address for Ghost Admin User
   #Advanced Options
   flavor:
     type: string
     default: 4 GB General Purpose v1
     label: Server Flavor
-    description: Flavor of Cloud Server to use for WordPress
+    description: Flavor of Cloud Server to use for Ghost
     constraints:
     - allowed_values:
       - 1 GB General Purpose v1
@@ -65,7 +65,7 @@ parameters:
 #    type: string
 #    default: f4bbbce2-50b0-4b07-bf09-96c175a45f4b
 #    label: Server Image
-#    description: Image to use for WordPress
+#    description: Image to use for Ghost
 #    constraints:
 #    - allowed_values:
 #      - f4bbbce2-50b0-4b07-bf09-96c175a45f4b
