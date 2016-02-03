@@ -92,9 +92,9 @@ Parameters
 Parameters can be replaced with your own values when standing up a stack. Use
 the `-P` flag to specify a custom parameter.
 
-* `ghost_url`: Domain to use with WordPress Site (Default: example.com)
-* `ghost_email`: E-mail Address for WordPress Admin User (Default: admin@example.com)
-* `flavor`: Flavor of Cloud Server to use for WordPress (Default: 4 GB General Purpose v1)
+* `ghost_url`: Domain to use with Ghost Site (Default: example.com)
+* `ghost_email`: E-mail Address for Ghost Admin User (Default: admin@example.com)
+* `flavor`: Flavor of Cloud Server to use for Ghost (Default: 4 GB General Purpose v1)
 * `database_disk`: Size of the Cloud Database volume in GB (Default: 5)
 * `database_flavor`: Flavor for the Cloud Database (Default: 1GB Instance)
 

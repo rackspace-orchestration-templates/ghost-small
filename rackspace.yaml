@@ -1,7 +1,7 @@
 schema-version: 1.0.0
 application-family: CMS
 application-name: Ghost
-application-version: 0.5.1
+application-version: Latest
 flavor: Production
 flavor-weight: 1
 reach-info:
@@ -67,6 +67,8 @@ instructions: |
 
 
 description: |
+  #### Production
+
   The latest version of [Ghost](http://ghost.org/about/) installed with
   [Nginx](http://wiki.nginx.org/Main/), [Node.js](http://nodejs.org/) and
   [MySQL 5.5](http://www.mysql.com/about/).
