@@ -10,6 +10,10 @@ parameter_groups:
 - label: Ghost Settings
   parameters:
   - ghost_url
+- label: rax-dev-params
+  parameters:
+  - server_image
+  - ansible_source
 
 parameters:
   #Ghost Customization
@@ -61,14 +65,20 @@ parameters:
       - 16GB Instance
       - 32GB Instance
       - 64GB Instance
-#  server_image:
-#    type: string
-#    default: f4bbbce2-50b0-4b07-bf09-96c175a45f4b
-#    label: Server Image
-#    description: Image to use for Ghost
-#    constraints:
-#    - allowed_values:
-#      - f4bbbce2-50b0-4b07-bf09-96c175a45f4b
+  server_image:
+    type: string
+    default: f4bbbce2-50b0-4b07-bf09-96c175a45f4b
+    label: Server Image
+    description: Image to use for Ghost
+    constraints:
+    - allowed_values:
+      - f4bbbce2-50b0-4b07-bf09-96c175a45f4b
+  ansible_source:
+    type: string
+    default: http://catalog.rs-heat.com/ansible-roles/ansible-roles.tar.gz
+    label: Ansible Tarball
+    description: The Ansible Roles will be pulled from the location provided
+    immutable: true
 
 resources:
   #Passwords
@@ -94,9 +104,6 @@ resources:
       flavor: { get_param: database_flavor }
       size: { get_param: database_disk }
       datastore_type: mysql
-#      Not available in all regions.
-#      datastore_version: "5.6"
-      datastore_version: "5.1"
       databases:
       - name: ghost
       - name: phpmyadmin
@@ -114,10 +121,16 @@ resources:
       group: script
       outputs:
       - name: results
-      config: |
-        #!/bin/bash
-        set -e
-        git clone -b 'stable' --single-branch --progress https://github.com/rackspace-orchestration-templates/ansible-roles.git /etc/ansible/roles > $heat_outputs_path.results 2>&1
+      config:
+        str_replace:
+          template: |
+            #!/bin/bash
+            set -e
+            mkdir -p /etc/ansible/roles
+            wget ansible_source -O /tmp/ansible-roles.tar.gz 2>&1
+            tar -xf /tmp/ansible-roles.tar.gz --strip-components=1 -C /etc/ansible/roles
+          params:
+            ansible_source: { get_param: ansible_source }
 
   ghost_config:
     type: OS::Heat::SoftwareConfig
@@ -184,8 +197,7 @@ resources:
     type: OS::Nova::Server
     properties:
       name: { get_param: "OS::stack_name" }
-#      image: { get_param: server_image }
-      image: f4bbbce2-50b0-4b07-bf09-96c175a45f4b
+      image: { get_param: server_image }
       flavor: { get_param: flavor }
       key_name: { get_resource: ssh_key }
       software_config_transport: POLL_TEMP_URL
